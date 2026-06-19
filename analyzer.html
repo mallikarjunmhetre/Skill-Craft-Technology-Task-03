@@ -1,0 +1,254 @@
+{% extends 'base.html' %}
+{% block title %}Password Analyzer — SentinelPass{% endblock %}
+{% block title %}Password Strength Analyzer - SentinelPass{% endblock %}
+{% block content %}
+<div class="hero-section" style="padding-bottom: 2rem;">
+<div class="hero-section" style="padding-bottom:2rem;">
+    <div class="hero-badge"><i data-lucide="shield-check"></i> Real-Time Analysis</div>
+    <h1>Password Strength Analyzer</h1>
+    <p class="subtitle" style="margin-bottom: 0;">Analyze your credentials using local complexity engines and secure breach lookup protocols.</p>
+    <p class="subtitle" style="margin-bottom:0;">
+        Multi-layer audit: entropy, breach lookup (k-Anonymity), dictionary check &amp; crack time estimation.
+    </p>
+</div>
+<div class="layout-grid">
+    <!-- Main input & feedback area -->
+    <div class="card">
+        <h2><i data-lucide="shield-check" style="color: var(--color-cyan);"></i> Input Credential</h2>
+        <p style="color: var(--text-secondary); margin-bottom: 1.5rem; font-size: 0.95rem;">
+            Type a password to begin analysis. Calculations are performed locally on your device, and API checks are secured with k-Anonymity.
+        </p>
+    <!-- ── LEFT: Input & Feedback ── -->
+    <div style="display:flex; flex-direction:column; gap:1.5rem;">
+        <div class="input-container">
+            <input type="password" id="password-input" class="password-input" placeholder="Enter password to evaluate..." autocomplete="off" spellcheck="false">
+            <button id="toggle-password-btn" class="input-icon-btn" title="Toggle Password Visibility">
+                <i data-lucide="eye"></i>
+            </button>
+        </div>
+        <!-- Input Card -->
+        <div class="card animate-fade-in">
+            <h2><i data-lucide="key-round" style="color:var(--color-cyan);"></i> Enter Password</h2>
+            <p style="color:var(--text-secondary); font-size:0.9rem; margin-bottom:1.5rem;">
+                Analysis runs locally. Breach check uses k-Anonymity — only a partial hash prefix is ever sent.
+            </p>
+        <div class="strength-meta-row">
+            <span class="strength-label" id="strength-text" style="color: var(--text-muted);">Awaiting input...</span>
+            <span class="entropy-badge" id="entropy-badge">0.00 bits</span>
+        </div>
+            <div class="input-container">
+                <input type="password" id="password-input" class="password-input"
+                       placeholder="Type or paste a password…" autocomplete="off" spellcheck="false"
+                       aria-label="Password to analyze">
+                <button id="toggle-password-btn" class="input-icon-btn" title="Toggle Visibility" aria-label="Toggle password visibility">
+                    <i data-lucide="eye"></i>
+                </button>
+            </div>
+        <div class="strength-bar-container">
+            <div id="strength-indicator-bar" class="strength-bar"></div>
+        </div>
+        <div class="criteria-list">
+            <div class="criteria-item" id="criterion-length">
+                <i data-lucide="circle"></i> 12+ Characters
+            <!-- Strength meter (segmented) -->
+            <div class="strength-meta-row">
+                <span class="strength-label" id="strength-text" style="color:var(--text-muted);">Awaiting input…</span>
+                <span class="entropy-badge" id="entropy-badge">0.00 bits</span>
+            </div>
+            <div class="criteria-item" id="criterion-upper">
+                <i data-lucide="circle"></i> Uppercase Letter (A-Z)
+            <div class="strength-bar-container" id="strength-bar-container">
+                <div class="strength-segment" id="seg-0"></div>
+                <div class="strength-segment" id="seg-1"></div>
+                <div class="strength-segment" id="seg-2"></div>
+                <div class="strength-segment" id="seg-3"></div>
+                <div class="strength-segment" id="seg-4"></div>
+            </div>
+            <div class="criteria-item" id="criterion-lower">
+                <i data-lucide="circle"></i> Lowercase Letter (a-z)
+            <!-- Criteria checklist -->
+            <div class="criteria-list">
+                <div class="criteria-item" id="criterion-length">
+                    <i data-lucide="circle"></i> 12+ Characters
+                </div>
+                <div class="criteria-item" id="criterion-upper">
+                    <i data-lucide="circle"></i> Uppercase (A‑Z)
+                </div>
+                <div class="criteria-item" id="criterion-lower">
+                    <i data-lucide="circle"></i> Lowercase (a‑z)
+                </div>
+                <div class="criteria-item" id="criterion-number">
+                    <i data-lucide="circle"></i> Number (0‑9)
+                </div>
+                <div class="criteria-item" id="criterion-special">
+                    <i data-lucide="circle"></i> Special Symbol
+                </div>
+            </div>
+            <div class="criteria-item" id="criterion-number">
+                <i data-lucide="circle"></i> Number (0-9)
+            <!-- Suggestions -->
+            <div class="suggestions-box" id="suggestions-box" style="display:none;" aria-live="polite">
+                <div class="suggestions-title">
+                    <i data-lucide="alert-triangle"></i> Recommendations
+                </div>
+                <ul class="suggestions-list" id="suggestions-list"></ul>
+            </div>
+            <div class="criteria-item" id="criterion-special">
+                <i data-lucide="circle"></i> Special Symbol (!@#$)
+            </div>
+        </div>
+        <div class="suggestions-box" id="suggestions-box" style="display: none;">
+            <div class="suggestions-title">
+                <i data-lucide="alert-triangle" style="color: var(--strength-2);"></i> Recommendations for Improvement:
+        <!-- Character Distribution Card -->
+        <div class="card animate-fade-in delay-2" id="dist-card" style="display:none;">
+            <h2 style="font-size:1.1rem; margin-bottom:1rem;">
+                <i data-lucide="bar-chart-2" style="color:var(--color-purple);"></i> Character Distribution
+            </h2>
+            <div class="dist-chart">
+                <div class="dist-row">
+                    <span class="dist-label">Uppercase</span>
+                    <div class="dist-bar-wrap">
+                        <div class="dist-bar" id="dist-upper" style="background:var(--color-cyan);"></div>
+                    </div>
+                    <span class="dist-count" id="dist-upper-n">0</span>
+                </div>
+                <div class="dist-row">
+                    <span class="dist-label">Lowercase</span>
+                    <div class="dist-bar-wrap">
+                        <div class="dist-bar" id="dist-lower" style="background:var(--color-blue);"></div>
+                    </div>
+                    <span class="dist-count" id="dist-lower-n">0</span>
+                </div>
+                <div class="dist-row">
+                    <span class="dist-label">Digits</span>
+                    <div class="dist-bar-wrap">
+                        <div class="dist-bar" id="dist-digits" style="background:var(--color-purple);"></div>
+                    </div>
+                    <span class="dist-count" id="dist-digits-n">0</span>
+                </div>
+                <div class="dist-row">
+                    <span class="dist-label">Special</span>
+                    <div class="dist-bar-wrap">
+                        <div class="dist-bar" id="dist-special" style="background:var(--color-pink);"></div>
+                    </div>
+                    <span class="dist-count" id="dist-special-n">0</span>
+                </div>
+            </div>
+            <ul class="suggestions-list" id="suggestions-list">
+                <!-- Javascript will inject entries here -->
+            </ul>
+        </div>
+    </div>
+    <!-- Diagnostic side widgets -->
+    <!-- ── RIGHT: Diagnostics Panel ── -->
+    <div class="details-panel">
+        <!-- Entropy gauge widget -->
+        <div class="card" style="padding: 1.5rem; text-align: center;">
+        <!-- Shannon Entropy Gauge -->
+        <div class="card animate-fade-in delay-1" style="padding:1.5rem; text-align:center;">
+            <div class="metric-header">
+                <span>Shannon Entropy</span>
+                <i data-lucide="activity"></i>
+            </div>
+            <div class="gauge-wrapper" style="margin: 1.5rem auto;">
+                <svg class="gauge-svg" width="140" height="140" viewBox="0 0 100 100">
+                    <circle class="gauge-track" cx="50" cy="50" r="44"></circle>
+                    <circle id="entropy-gauge-fill" class="gauge-fill" cx="50" cy="50" r="44" stroke-dasharray="276" stroke-dashoffset="276" stroke="var(--color-cyan)"></circle>
+            <div class="gauge-wrapper">
+                <svg class="gauge-svg" width="130" height="130" viewBox="0 0 100 100" aria-hidden="true">
+                    <circle class="gauge-track" cx="50" cy="50" r="42"></circle>
+                    <circle id="entropy-gauge-fill" class="gauge-fill" cx="50" cy="50" r="42"
+                            stroke-dasharray="264" stroke-dashoffset="264"
+                            stroke="var(--color-cyan)"></circle>
+                </svg>
+                <div class="gauge-text">
+                    <div class="gauge-num" id="gauge-entropy-val">0</div>
+                    <div class="gauge-unit">bits</div>
+                </div>
+            </div>
+            <p style="font-size: 0.8rem; color: var(--text-muted); line-height: 1.4;">
+                Measures complexity based on the size of the character pool and total length. 60+ bits is standard, 80+ bits is highly secure.
+            <p style="font-size:0.78rem; color:var(--text-muted); line-height:1.5;">
+                <strong style="color:var(--text-secondary);">H = L × log₂(R)</strong><br>
+                60+ bits = robust &bull; 80+ bits = highly secure
+            </p>
+        </div>
+        <!-- Have I Been Pwned check widget -->
+        <div class="card" style="padding: 1.5rem;" id="pwned-status-card">
+        <!-- Breach Check -->
+        <div class="card animate-fade-in delay-2" style="padding:1.35rem;" id="pwned-status-card">
+            <div class="metric-header">
+                <span>Breach Database Check</span>
+                <i data-lucide="globe"></i>
+                <span>Breach Database</span>
+                <i data-lucide="shield-x"></i>
+            </div>
+            <div class="metric-value neutral" id="pwned-status-val">Awaiting input...</div>
+            <div class="metric-desc" id="pwned-status-desc">Checks if the password was leaked in past data breaches indexing billions of leaked credentials.</div>
+            <div class="metric-value neutral" id="pwned-status-val">Awaiting input…</div>
+            <div class="metric-desc" id="pwned-status-desc">
+                Checks billions of leaked credentials via Have I Been Pwned (k-Anonymity).
+            </div>
+        </div>
+        <!-- Crack Time estimations card -->
+        <div class="card" style="padding: 1.5rem;">
+        <!-- Crack Time -->
+        <div class="card animate-fade-in delay-3" style="padding:1.35rem;">
+            <div class="metric-header">
+                <span>Time To Crack (Est.)</span>
+                <span>Estimated Crack Time</span>
+                <i data-lucide="clock"></i>
+            </div>
+            
+            <div style="display: flex; flex-direction: column; gap: 1rem; margin-top: 1rem;">
+                <div style="display: flex; justify-content: space-between; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 0.5rem;">
+                    <span style="font-size: 0.85rem; color: var(--text-secondary);"><i data-lucide="smartphone" style="width: 14px; height: 14px; vertical-align: middle; margin-right: 4px;"></i> Online (100 att/sec):</span>
+                    <span style="font-weight: 600; font-size: 0.9rem; font-family: var(--font-mono);" id="time-online">Instantly</span>
+                </div>
+                <div style="display: flex; justify-content: space-between; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 0.5rem;">
+                    <span style="font-size: 0.85rem; color: var(--text-secondary);"><i data-lucide="server" style="width: 14px; height: 14px; vertical-align: middle; margin-right: 4px;"></i> Offline Fast Hash (10B/sec):</span>
+                    <span style="font-weight: 600; font-size: 0.9rem; font-family: var(--font-mono);" id="time-offline">Instantly</span>
+                </div>
+                <div style="display: flex; justify-content: space-between; padding-bottom: 0.25rem;">
+                    <span style="font-size: 0.85rem; color: var(--text-secondary);"><i data-lucide="cpu" style="width: 14px; height: 14px; vertical-align: middle; margin-right: 4px;"></i> Supercomputer (100T/sec):</span>
+                    <span style="font-weight: 600; font-size: 0.9rem; font-family: var(--font-mono);" id="time-super">Instantly</span>
+                </div>
+            <div class="crack-row">
+                <span class="crack-label">
+                    <i data-lucide="smartphone"></i> Online (100/s)
+                </span>
+                <span class="crack-value" id="time-online">—</span>
+            </div>
+            <div class="crack-row">
+                <span class="crack-label">
+                    <i data-lucide="server"></i> Offline (10B/s)
+                </span>
+                <span class="crack-value" id="time-offline">—</span>
+            </div>
+            <div class="crack-row">
+                <span class="crack-label">
+                    <i data-lucide="cpu"></i> Supercomputer (100T/s)
+                </span>
+                <span class="crack-value" id="time-super">—</span>
+            </div>
+        </div>
+    </div>
+        <!-- Pool Size -->
+        <div class="card animate-fade-in delay-4" style="padding:1.35rem;">
+            <div class="metric-header">
+                <span>Character Pool</span>
+                <i data-lucide="layers"></i>
+            </div>
+            <div class="metric-value neutral" id="pool-val">—</div>
+            <div class="metric-desc">
+                Total unique characters available for combination generation.
+                Larger pool = exponentially stronger.
+            </div>
+        </div>
+    </div><!-- /details-panel -->
+</div>
+{% endblock %}
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/analyzer.js') }}"></script>
+{% endblock %}
