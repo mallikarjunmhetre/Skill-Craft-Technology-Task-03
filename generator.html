@@ -1,0 +1,243 @@
+{% extends 'base.html' %}
+{% block title %}Secure Password Generator — SentinelPass{% endblock %}
+{% block title %}Secure Password Generator - SentinelPass{% endblock %}
+{% block content %}
+<div class="hero-section" style="padding-bottom: 2rem;">
+<div class="hero-section" style="padding-bottom:2rem;">
+    <div class="hero-badge"><i data-lucide="refresh-cw"></i> CSPRNG Powered</div>
+    <h1>Secure Password Generator</h1>
+    <p class="subtitle" style="margin-bottom: 0;">Generate cryptographically secure random passwords or memorable passphrases in your browser.</p>
+    <p class="subtitle" style="margin-bottom:0;">
+        Generate cryptographically secure passwords or memorable passphrases using Python's
+        <code style="background:rgba(6,182,212,0.1);color:var(--color-cyan);padding:0.1rem 0.5rem;border-radius:4px;font-family:var(--font-mono);">secrets</code>
+        module — true CSPRNG, not Math.random().
+    </p>
+</div>
+<div class="card animate-fade-in" style="max-width: 800px; margin: 0 auto;">
+    <!-- Tabs -->
+    <div class="generator-tabs">
+        <button class="gen-tab active" id="tab-password">Random Password</button>
+        <button class="gen-tab" id="tab-passphrase">Memorable Passphrase</button>
+    </div>
+<div class="grid-2" style="align-items:start;">
+    <!-- Password output container -->
+    <div class="generator-output-container">
+        <div class="gen-output" id="generated-output">Awaiting generation...</div>
+        <button class="btn btn-secondary btn-icon" id="copy-btn" title="Copy Password to Clipboard">
+            <i data-lucide="copy"></i>
+        </button>
+        <button class="btn btn-primary btn-icon" id="regenerate-btn" title="Generate New Password">
+            <i data-lucide="refresh-cw"></i>
+        </button>
+    </div>
+    <!-- ── LEFT: Generator Controls ── -->
+    <div class="card animate-fade-in" style="max-width:100%;">
+    <!-- Live Strength Meter for generated password -->
+    <div style="margin-bottom: 2rem;">
+        <div class="strength-meta-row" style="margin-bottom: 0.5rem;">
+            <span style="font-size: 0.9rem; color: var(--text-secondary);">Strength Assessment:</span>
+            <span class="strength-label" id="gen-strength-text" style="color: var(--text-muted); font-size: 0.95rem;">-</span>
+        <!-- Tabs -->
+        <div class="generator-tabs">
+            <button class="gen-tab active" id="tab-password" aria-selected="true">
+                <i data-lucide="key-round" style="width:15px;height:15px;vertical-align:middle;margin-right:5px;"></i>
+                Random Password
+            </button>
+            <button class="gen-tab" id="tab-passphrase" aria-selected="false">
+                <i data-lucide="align-left" style="width:15px;height:15px;vertical-align:middle;margin-right:5px;"></i>
+                Passphrase
+            </button>
+        </div>
+        <div class="strength-bar-container" style="margin-bottom: 0; height: 5px;">
+            <div id="gen-strength-bar" class="strength-bar"></div>
+        <!-- Output Display -->
+        <div class="generator-output-container">
+            <div class="gen-output" id="generated-output">
+                <span style="color:var(--text-muted);">Click Generate…</span>
+            </div>
+            <button class="btn btn-secondary btn-icon" id="copy-btn" title="Copy to Clipboard" aria-label="Copy generated password">
+                <i data-lucide="copy"></i>
+            </button>
+            <button class="btn btn-primary btn-icon" id="regenerate-btn" title="Generate New Password" aria-label="Generate new password">
+                <i data-lucide="refresh-cw"></i>
+            </button>
+        </div>
+    </div>
+    <!-- Controls Form -->
+    <div class="generator-controls">
+        
+        <!-- Random Password Options -->
+        <!-- Live strength meter for generated output -->
+        <div style="margin-bottom:2rem;">
+            <div class="strength-meta-row" style="margin-bottom:0.5rem;">
+                <span style="font-size:0.85rem; color:var(--text-muted);">Generated Strength:</span>
+                <span class="strength-label" id="gen-strength-text" style="color:var(--text-muted); font-size:0.9rem;">—</span>
+            </div>
+            <div class="strength-bar-container">
+                <div class="strength-segment" id="gsen-0"></div>
+                <div class="strength-segment" id="gsen-1"></div>
+                <div class="strength-segment" id="gsen-2"></div>
+                <div class="strength-segment" id="gsen-3"></div>
+                <div class="strength-segment" id="gsen-4"></div>
+            </div>
+        </div>
+        <!-- ── Random Password Options ── -->
+        <div id="panel-password">
+            <div class="control-group" style="margin-bottom: 1.5rem;">
+            <div class="control-group" style="margin-bottom:1.5rem;">
+                <div class="control-label-row">
+                    <label for="length-slider">Password Length:</label>
+                    <span class="length-display" id="length-val">16</span>
+                </div>
+                <input type="range" id="length-slider" min="8" max="64" value="16">
+                <input type="range" id="length-slider" min="8" max="64" value="16"
+                       aria-label="Password length" aria-valuemin="8" aria-valuemax="64" aria-valuenow="16">
+                <div style="display:flex; justify-content:space-between; font-size:0.75rem; color:var(--text-muted); margin-top:0.25rem;">
+                    <span>8 (Minimum)</span>
+                    <span>64 (Maximum)</span>
+                </div>
+            </div>
+            <div class="control-group">
+                <label>Character Sets to Include:</label>
+                <label style="font-size:0.88rem; font-weight:600; color:var(--text-secondary);">Character Sets:</label>
+                <div class="checkbox-grid">
+                    <label class="checkbox-item">
+                        <input type="checkbox" id="char-upper" checked>
+                        <span>Uppercase (A-Z)</span>
+                        <span>Uppercase A–Z</span>
+                    </label>
+                    <label class="checkbox-item">
+                        <input type="checkbox" id="char-lower" checked>
+                        <span>Lowercase (a-z)</span>
+                        <span>Lowercase a–z</span>
+                    </label>
+                    <label class="checkbox-item">
+                        <input type="checkbox" id="char-numbers" checked>
+                        <span>Numbers (0-9)</span>
+                        <span>Numbers 0–9</span>
+                    </label>
+                    <label class="checkbox-item">
+                        <input type="checkbox" id="char-symbols" checked>
+                        <span>Symbols (!@#$%)</span>
+                        <span>Symbols !@#$</span>
+                    </label>
+                </div>
+            </div>
+        </div>
+        <!-- Memorable Passphrase Options -->
+        <div id="panel-passphrase" style="display: none;">
+            <div class="control-group" style="margin-bottom: 1.5rem;">
+        <!-- ── Passphrase Options ── -->
+        <div id="panel-passphrase" style="display:none;">
+            <div class="control-group" style="margin-bottom:1.5rem;">
+                <div class="control-label-row">
+                    <label for="words-slider">Number of Words:</label>
+                    <span class="length-display" id="words-val">4</span>
+                </div>
+                <input type="range" id="words-slider" min="3" max="10" value="4">
+                <input type="range" id="words-slider" min="3" max="10" value="4"
+                       aria-label="Number of words">
+                <div style="display:flex; justify-content:space-between; font-size:0.75rem; color:var(--text-muted); margin-top:0.25rem;">
+                    <span>3 (Quick)</span>
+                    <span>10 (Very Secure)</span>
+                </div>
+            </div>
+            <div class="control-group">
+                <label for="separator-select">Separator Character:</label>
+                <div class="checkbox-grid" style="grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));">
+                    <label class="checkbox-item" style="justify-content: center; padding: 0.5rem;">
+                <label style="font-size:0.88rem; font-weight:600; color:var(--text-secondary);">Word Separator:</label>
+                <div class="checkbox-grid" style="grid-template-columns:repeat(auto-fit,minmax(130px,1fr));">
+                    <label class="checkbox-item" style="justify-content:center;">
+                        <input type="radio" name="separator" value="-" checked>
+                        <span>Hyphen (-)</span>
+                        <span>Hyphen  —</span>
+                    </label>
+                    <label class="checkbox-item" style="justify-content: center; padding: 0.5rem;">
+                    <label class="checkbox-item" style="justify-content:center;">
+                        <input type="radio" name="separator" value="_">
+                        <span>Underscore (_)</span>
+                        <span>Underscore _</span>
+                    </label>
+                    <label class="checkbox-item" style="justify-content: center; padding: 0.5rem;">
+                    <label class="checkbox-item" style="justify-content:center;">
+                        <input type="radio" name="separator" value=".">
+                        <span>Period (.)</span>
+                        <span>Period .</span>
+                    </label>
+                    <label class="checkbox-item" style="justify-content: center; padding: 0.5rem;">
+                    <label class="checkbox-item" style="justify-content:center;">
+                        <input type="radio" name="separator" value=" ">
+                        <span>Space ( )</span>
+                        <span>Space &nbsp;</span>
+                    </label>
+                </div>
+            </div>
+        </div>
+        <!-- Generate Button -->
+        <button class="btn btn-primary" id="generate-btn" style="width:100%; margin-top:1.75rem; padding:1rem;">
+            <i data-lucide="zap"></i> Generate Password
+        </button>
+    </div>
+    <!-- ── RIGHT: History & Info ── -->
+    <div style="display:flex; flex-direction:column; gap:1.5rem;">
+        <!-- History -->
+        <div class="card animate-fade-in delay-2">
+            <h2 style="font-size:1.1rem; margin-bottom:0.25rem;">
+                <i data-lucide="history" style="color:var(--color-purple);"></i> History
+                <span style="font-size:0.75rem; font-weight:400; color:var(--text-muted); margin-left:auto;">(Last 5)</span>
+            </h2>
+            <p style="font-size:0.82rem; color:var(--text-muted); margin-bottom:1rem;">
+                Recently generated passwords (session only, never stored).
+            </p>
+            <div class="history-list" id="history-list">
+                <p style="color:var(--text-muted); font-size:0.85rem; text-align:center; padding:1rem 0;">
+                    No history yet. Generate a password above.
+                </p>
+            </div>
+            <button class="btn btn-secondary btn-sm" id="clear-history-btn" style="margin-top:1rem; width:100%;">
+                <i data-lucide="trash-2"></i> Clear History
+            </button>
+        </div>
+        <!-- Security Tips -->
+        <div class="card animate-fade-in delay-3">
+            <h2 style="font-size:1.1rem; margin-bottom:1rem;">
+                <i data-lucide="lightbulb" style="color:var(--color-yellow);"></i> Pro Tips
+            </h2>
+            <ul class="feature-list">
+                <li><i data-lucide="check"></i>
+                    Use a unique password for every account — never reuse.</li>
+                <li><i data-lucide="check"></i>
+                    16+ characters is ideal for most accounts.</li>
+                <li><i data-lucide="check"></i>
+                    Passphrases (4 random words) are easier to remember and very secure.</li>
+                <li><i data-lucide="check"></i>
+                    Store passwords in a trusted password manager (e.g. Bitwarden, 1Password).</li>
+                <li><i data-lucide="check"></i>
+                    Always enable Multi-Factor Authentication (MFA) where possible.</li>
+            </ul>
+        </div>
+        <!-- CSPRNG Info -->
+        <div class="card animate-fade-in delay-4" style="background:rgba(6,182,212,0.05); border-color:rgba(6,182,212,0.2);">
+            <div style="display:flex; gap:0.75rem; align-items:flex-start;">
+                <i data-lucide="shield-check" style="color:var(--color-cyan); width:22px; height:22px; flex-shrink:0; margin-top:2px;"></i>
+                <div>
+                    <h3 style="color:var(--color-cyan); font-size:0.95rem; margin-bottom:0.4rem;">Why CSPRNG?</h3>
+                    <p style="font-size:0.82rem; color:var(--text-secondary); line-height:1.6;">
+                        JavaScript's <code class="font-mono" style="background:rgba(0,0,0,0.3); padding:0.1rem 0.3rem; border-radius:3px;">Math.random()</code>
+                        is <strong style="color:var(--text-primary);">not cryptographically secure</strong>.
+                        SentinelPass uses Python's <code class="font-mono" style="background:rgba(0,0,0,0.3); padding:0.1rem 0.3rem; border-radius:3px;">secrets</code>
+                        module which draws from the OS entropy pool
+                        (<code class="font-mono" style="background:rgba(0,0,0,0.3); padding:0.1rem 0.3rem; border-radius:3px;">/dev/urandom</code> on Linux/macOS,
+                        <code class="font-mono" style="background:rgba(0,0,0,0.3); padding:0.1rem 0.3rem; border-radius:3px;">CryptGenRandom</code> on Windows)
+                        for true unpredictability.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/generator.js') }}"></script>
+{% endblock %}
