@@ -1,0 +1,276 @@
+{% extends 'base.html' %}
+{% block title %}About & Tech Stack — SentinelPass{% endblock %}
+{% block content %}
+<div class="hero-section" style="padding-bottom:2rem;">
+    <div class="hero-badge"><i data-lucide="cpu"></i> Open Source Project</div>
+    <h1>Tools &amp; Technology</h1>
+    <p class="subtitle" style="margin-bottom:0;">
+        Everything powering SentinelPass — from the Python backend and cryptographic libraries
+        to the frontend design system and DevOps workflow.
+    </p>
+</div>
+<!-- ── Tech Stack Grid ── -->
+<div class="card animate-fade-in" style="margin-bottom:2rem;">
+    <h2><i data-lucide="layers" style="color:var(--color-cyan);"></i> Technology Stack</h2>
+    <p style="color:var(--text-secondary); font-size:0.9rem; margin-bottom:1.75rem;">
+        SentinelPass is built with a modern, security-conscious full-stack approach.
+    </p>
+    <p class="section-title"><i data-lucide="server" style="width:13px;height:13px;"></i> Backend</p>
+    <div class="tech-grid" style="margin-bottom:2rem;">
+        <div class="tech-card" style="--hover-color:rgba(239,84,57,0.4); --hover-bg:rgba(239,84,57,0.06);">
+            <span class="tech-icon">🐍</span>
+            <div class="tech-name" style="color:#f97316;">Python 3.11+</div>
+            <div class="tech-desc">Core language. Handles cryptography, entropy math, and API logic.</div>
+        </div>
+        <div class="tech-card" style="--hover-color:rgba(6,182,212,0.4); --hover-bg:rgba(6,182,212,0.06);">
+            <span class="tech-icon">⚗️</span>
+            <div class="tech-name" style="color:var(--color-cyan);">Flask 3.x</div>
+            <div class="tech-desc">Lightweight WSGI micro-framework for routing and Jinja2 templating.</div>
+        </div>
+        <div class="tech-card" style="--hover-color:rgba(139,92,246,0.4); --hover-bg:rgba(139,92,246,0.06);">
+            <span class="tech-icon">🔐</span>
+            <div class="tech-name" style="color:var(--color-purple);">secrets module</div>
+            <div class="tech-desc">Python's CSPRNG for cryptographically secure password generation.</div>
+        </div>
+        <div class="tech-card" style="--hover-color:rgba(16,185,129,0.4); --hover-bg:rgba(16,185,129,0.06);">
+            <span class="tech-icon">🔑</span>
+            <div class="tech-name" style="color:var(--color-green);">hashlib (SHA-1)</div>
+            <div class="tech-desc">Hashes passwords locally for k-Anonymity HIBP breach lookups.</div>
+        </div>
+        <div class="tech-card" style="--hover-color:rgba(251,146,60,0.4); --hover-bg:rgba(251,146,60,0.06);">
+            <span class="tech-icon">📐</span>
+            <div class="tech-name" style="color:var(--color-orange);">math (log₂)</div>
+            <div class="tech-desc">Shannon entropy calculation: H = L × log₂(R).</div>
+        </div>
+        <div class="tech-card" style="--hover-color:rgba(59,130,246,0.4); --hover-bg:rgba(59,130,246,0.06);">
+            <span class="tech-icon">🌐</span>
+            <div class="tech-name" style="color:var(--color-blue);">urllib / HIBP API</div>
+            <div class="tech-desc">Privacy-preserving breach checking against 750M+ leaked passwords.</div>
+        </div>
+    </div>
+    <p class="section-title"><i data-lucide="monitor" style="width:13px;height:13px;"></i> Frontend</p>
+    <div class="tech-grid" style="margin-bottom:2rem;">
+        <div class="tech-card" style="--hover-color:rgba(251,146,60,0.4); --hover-bg:rgba(251,146,60,0.06);">
+            <span class="tech-icon">🌐</span>
+            <div class="tech-name" style="color:#f97316;">HTML5</div>
+            <div class="tech-desc">Semantic markup, ARIA roles, and Jinja2 template inheritance.</div>
+        </div>
+        <div class="tech-card" style="--hover-color:rgba(59,130,246,0.4); --hover-bg:rgba(59,130,246,0.06);">
+            <span class="tech-icon">🎨</span>
+            <div class="tech-name" style="color:var(--color-blue);">Vanilla CSS3</div>
+            <div class="tech-desc">Custom properties, glassmorphism, CSS Grid, animations, and responsive design.</div>
+        </div>
+        <div class="tech-card" style="--hover-color:rgba(250,204,21,0.4); --hover-bg:rgba(250,204,21,0.06);">
+            <span class="tech-icon">⚡</span>
+            <div class="tech-name" style="color:var(--color-yellow);">Vanilla JavaScript</div>
+            <div class="tech-desc">Fetch API, DOM manipulation, Canvas particle system, debouncing.</div>
+        </div>
+        <div class="tech-card" style="--hover-color:rgba(6,182,212,0.4); --hover-bg:rgba(6,182,212,0.06);">
+            <span class="tech-icon">✨</span>
+            <div class="tech-name" style="color:var(--color-cyan);">Lucide Icons</div>
+            <div class="tech-desc">Clean SVG icon library loaded via CDN — lightweight and crisp.</div>
+        </div>
+        <div class="tech-card" style="--hover-color:rgba(139,92,246,0.4); --hover-bg:rgba(139,92,246,0.06);">
+            <span class="tech-icon">🔤</span>
+            <div class="tech-name" style="color:var(--color-purple);">Google Fonts</div>
+            <div class="tech-desc">Outfit (UI) + Fira Code (monospace) for a premium typographic feel.</div>
+        </div>
+        <div class="tech-card" style="--hover-color:rgba(16,185,129,0.4); --hover-bg:rgba(16,185,129,0.06);">
+            <span class="tech-icon">🎭</span>
+            <div class="tech-name" style="color:var(--color-green);">Canvas API</div>
+            <div class="tech-desc">Animated particle background rendering using HTML5 Canvas 2D context.</div>
+        </div>
+    </div>
+    <p class="section-title"><i data-lucide="git-branch" style="width:13px;height:13px;"></i> DevOps & Tools</p>
+    <div class="tech-grid">
+        <div class="tech-card" style="--hover-color:rgba(255,255,255,0.2); --hover-bg:rgba(255,255,255,0.04);">
+            <span class="tech-icon">🐙</span>
+            <div class="tech-name">GitHub</div>
+            <div class="tech-desc">Version control, collaboration, and open-source publishing.</div>
+        </div>
+        <div class="tech-card" style="--hover-color:rgba(59,130,246,0.4); --hover-bg:rgba(59,130,246,0.06);">
+            <span class="tech-icon">📦</span>
+            <div class="tech-name" style="color:var(--color-blue);">pip / venv</div>
+            <div class="tech-desc">Python dependency management and isolated virtual environments.</div>
+        </div>
+        <div class="tech-card" style="--hover-color:rgba(6,182,212,0.4); --hover-bg:rgba(6,182,212,0.06);">
+            <span class="tech-icon">🔒</span>
+            <div class="tech-name" style="color:var(--color-cyan);">HIBP k-Anonymity</div>
+            <div class="tech-desc">Zero-trust privacy model — passwords never leave your device in full.</div>
+        </div>
+        <div class="tech-card" style="--hover-color:rgba(16,185,129,0.4); --hover-bg:rgba(16,185,129,0.06);">
+            <span class="tech-icon">🧪</span>
+            <div class="tech-name" style="color:var(--color-green);">REST API</div>
+            <div class="tech-desc">JSON endpoints: /api/analyze and /api/generate with error handling.</div>
+        </div>
+    </div>
+</div>
+<!-- ── Project Structure ── -->
+<div class="grid-2 animate-fade-in delay-1" style="margin-bottom:2rem; align-items:start;">
+    <div class="card">
+        <h2><i data-lucide="folder-tree" style="color:var(--color-yellow);"></i> Project Structure</h2>
+        <p style="color:var(--text-secondary); font-size:0.85rem; margin-bottom:1.25rem;">
+            Clean MVC-style layout following Flask conventions.
+        </p>
+        <div class="file-tree">
+<span class="dir">password-strength-checker/</span>
+├── <span class="py">app.py</span>               <span class="comment"># Flask backend & API</span>
+├── <span class="md">README.md</span>            <span class="comment"># GitHub documentation</span>
+├── <span class="txt">requirements.txt</span>     <span class="comment"># Python dependencies</span>
+│
+├── <span class="dir">static/</span>
+│   ├── <span class="dir">css/</span>
+│   │   └── <span class="css">style.css</span>        <span class="comment"># Full design system</span>
+│   ├── <span class="dir">js/</span>
+│   │   ├── <span class="js">analyzer.js</span>      <span class="comment"># Strength analysis UI</span>
+│   │   ├── <span class="js">generator.js</span>     <span class="comment"># Password generator UI</span>
+│   │   ├── <span class="js">simulator.js</span>     <span class="comment"># Brute-force simulator</span>
+│   │   └── <span class="js">particles.js</span>     <span class="comment"># Canvas particle BG</span>
+│   └── <span class="txt">common_passwords.txt</span> <span class="comment"># Offline dictionary</span>
+│
+└── <span class="dir">templates/</span>
+    ├── <span class="html">base.html</span>            <span class="comment"># Shared layout + nav</span>
+    ├── <span class="html">index.html</span>           <span class="comment"># Dashboard (Home)</span>
+    ├── <span class="html">analyzer.html</span>        <span class="comment"># Strength analyzer</span>
+    ├── <span class="html">generator.html</span>       <span class="comment"># Password generator</span>
+    ├── <span class="html">education.html</span>       <span class="comment"># Learning center</span>
+    └── <span class="html">about.html</span>           <span class="comment"># Tech stack & docs</span>
+        </div>
+    </div>
+    <!-- Key Features -->
+    <div class="card">
+        <h2><i data-lucide="star" style="color:var(--color-yellow);"></i> Key Features</h2>
+        <ul class="feature-list">
+            <li><i data-lucide="activity"></i> Real-time Shannon entropy calculation (H = L × log₂R)</li>
+            <li><i data-lucide="shield-x"></i> k-Anonymity breach checking via HIBP API (750M+ hashes)</li>
+            <li><i data-lucide="clock"></i> Crack time estimation across 3 attack models</li>
+            <li><i data-lucide="bar-chart-2"></i> Character distribution visualisation</li>
+            <li><i data-lucide="refresh-cw"></i> Server-side CSPRNG password generation (Python secrets)</li>
+            <li><i data-lucide="align-left"></i> Memorable passphrase generator with custom separators</li>
+            <li><i data-lucide="terminal"></i> Live brute-force attack simulator with real-time console</li>
+            <li><i data-lucide="book"></i> Interactive dictionary attack checker</li>
+            <li><i data-lucide="graduation-cap"></i> 7-topic expandable cybersecurity knowledge base</li>
+            <li><i data-lucide="history"></i> Session-based password generation history</li>
+            <li><i data-lucide="sparkles"></i> Canvas particle animation background</li>
+            <li><i data-lucide="smartphone"></i> Fully responsive mobile-first design</li>
+        </ul>
+    </div>
+</div>
+<!-- ── Cybersecurity Concepts Covered ── -->
+<div class="card animate-fade-in delay-2" style="margin-bottom:2rem;">
+    <h2><i data-lucide="shield" style="color:var(--color-green);"></i> Cybersecurity Concepts Covered</h2>
+    <div class="tech-grid" style="grid-template-columns:repeat(auto-fit, minmax(160px, 1fr));">
+        {% set concepts = [
+            ("🔐", "SHA-1 Hashing", "cyan"),
+            ("🧂", "Cryptographic Salting", "blue"),
+            ("🎯", "Brute Force Attacks", "red"),
+            ("📖", "Dictionary Attacks", "orange"),
+            ("🌈", "Rainbow Table Defense", "purple"),
+            ("🔑", "k-Anonymity Protocol", "cyan"),
+            ("📱", "Multi-Factor Auth (MFA)", "green"),
+            ("📊", "Shannon Entropy Theory", "blue"),
+            ("🛡️", "Zero-Trust Security", "purple"),
+            ("💥", "Credential Stuffing", "red"),
+            ("🎲", "CSPRNG vs PRNG", "yellow"),
+            ("🔒", "Password Best Practices", "green")
+        ] %}
+        {% for icon, name, color in concepts %}
+        <div class="tech-card" style="padding:1rem; --hover-color:rgba(6,182,212,0.3); --hover-bg:rgba(6,182,212,0.04);">
+            <span class="tech-icon" style="font-size:1.8rem;">{{ icon }}</span>
+            <div class="tech-name" style="font-size:0.82rem; color:var(--color-{{ color }});">{{ name }}</div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+<!-- ── GitHub / Links ── -->
+<div class="card animate-fade-in delay-3" style="margin-bottom:2rem;">
+    <h2><i data-lucide="github" style="color:var(--text-primary);"></i> GitHub &amp; Links</h2>
+    <p style="color:var(--text-secondary); font-size:0.9rem; margin-bottom:1.5rem;">
+        This project is open source and designed for portfolio demonstration and educational purposes.
+    </p>
+    <div style="display:flex; flex-direction:column; gap:0.85rem;">
+        <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="link-card">
+            <i data-lucide="github"></i>
+            <div class="link-card-text">
+                <div class="link-title">GitHub Repository</div>
+                <div class="link-url">github.com/yourusername/password-strength-checker</div>
+            </div>
+            <i data-lucide="external-link" style="width:16px;height:16px;color:var(--text-muted);margin-left:auto;"></i>
+        </a>
+        <a href="https://haveibeenpwned.com/API/v3" target="_blank" rel="noopener noreferrer" class="link-card">
+            <i data-lucide="globe"></i>
+            <div class="link-card-text">
+                <div class="link-title">Have I Been Pwned API</div>
+                <div class="link-url">haveibeenpwned.com/API/v3 — k-Anonymity breach lookup</div>
+            </div>
+            <i data-lucide="external-link" style="width:16px;height:16px;color:var(--text-muted);margin-left:auto;"></i>
+        </a>
+        <a href="https://docs.python.org/3/library/secrets.html" target="_blank" rel="noopener noreferrer" class="link-card">
+            <i data-lucide="book-open"></i>
+            <div class="link-card-text">
+                <div class="link-title">Python secrets Module Docs</div>
+                <div class="link-url">docs.python.org — CSPRNG for password generation</div>
+            </div>
+            <i data-lucide="external-link" style="width:16px;height:16px;color:var(--text-muted);margin-left:auto;"></i>
+        </a>
+        <a href="https://flask.palletsprojects.com" target="_blank" rel="noopener noreferrer" class="link-card">
+            <i data-lucide="zap"></i>
+            <div class="link-card-text">
+                <div class="link-title">Flask Documentation</div>
+                <div class="link-url">flask.palletsprojects.com — Python micro web framework</div>
+            </div>
+            <i data-lucide="external-link" style="width:16px;height:16px;color:var(--text-muted);margin-left:auto;"></i>
+        </a>
+    </div>
+</div>
+<!-- ── How to Run ── -->
+<div class="card animate-fade-in delay-4">
+    <h2><i data-lucide="terminal" style="color:var(--color-green);"></i> How to Run Locally</h2>
+    <div class="timeline" style="margin-top:1.25rem;">
+        <div class="tl-item">
+            <div class="tl-label">Step 1</div>
+            <div class="tl-title">Clone the Repository</div>
+            <div class="tl-desc">
+                <code style="background:var(--bg-input);padding:0.4rem 0.75rem;border-radius:6px;font-family:var(--font-mono);font-size:0.82rem;display:block;margin-top:0.35rem;color:var(--color-green);">
+                    git clone https://github.com/yourusername/password-strength-checker.git
+                </code>
+            </div>
+        </div>
+        <div class="tl-item">
+            <div class="tl-label">Step 2</div>
+            <div class="tl-title">Create & Activate Virtual Environment</div>
+            <div class="tl-desc">
+                <code style="background:var(--bg-input);padding:0.4rem 0.75rem;border-radius:6px;font-family:var(--font-mono);font-size:0.82rem;display:block;margin-top:0.35rem;color:var(--color-cyan);">
+                    python -m venv venv &nbsp;&nbsp;# Windows: venv\Scripts\activate
+                </code>
+            </div>
+        </div>
+        <div class="tl-item">
+            <div class="tl-label">Step 3</div>
+            <div class="tl-title">Install Dependencies</div>
+            <div class="tl-desc">
+                <code style="background:var(--bg-input);padding:0.4rem 0.75rem;border-radius:6px;font-family:var(--font-mono);font-size:0.82rem;display:block;margin-top:0.35rem;color:var(--color-yellow);">
+                    pip install -r requirements.txt
+                </code>
+            </div>
+        </div>
+        <div class="tl-item">
+            <div class="tl-label">Step 4</div>
+            <div class="tl-title">Run the Flask Server</div>
+            <div class="tl-desc">
+                <code style="background:var(--bg-input);padding:0.4rem 0.75rem;border-radius:6px;font-family:var(--font-mono);font-size:0.82rem;display:block;margin-top:0.35rem;color:var(--color-purple);">
+                    python app.py
+                </code>
+            </div>
+        </div>
+        <div class="tl-item" style="padding-bottom:0;">
+            <div class="tl-label">Step 5</div>
+            <div class="tl-title">Open in Browser</div>
+            <div class="tl-desc">
+                Navigate to
+                <a href="http://localhost:5000" style="color:var(--color-cyan); font-family:var(--font-mono);">http://localhost:5000</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
