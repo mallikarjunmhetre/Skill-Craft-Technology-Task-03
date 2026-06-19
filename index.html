@@ -1,0 +1,258 @@
+{% extends 'base.html' %}
+{% block title %}SentinelPass — Advanced Password Security Suite{% endblock %}
+{% block title %}SentinelPass - Advanced Password Security Suite{% endblock %}
+{% block content %}
+<section class="hero-section">
+    <h1>Guard Your Digital Assets</h1>
+    <p class="subtitle">An advanced suite for assessing password vulnerability, generating cryptographic entropy, and simulating cyber-attacks.</p>
+<!-- ── Hero ── -->
+<section class="hero-section animate-fade-in">
+    <div class="hero-badge">
+        <i data-lucide="shield-alert"></i>
+        Password Security Suite
+    </div>
+    <h1>Guard Your<br>Digital Identity</h1>
+    <p class="subtitle">
+        Real-time password analysis, cryptographic generation, breach detection,
+        and cybersecurity education — all in one privacy-first tool.
+    </p>
+    <div style="display:flex; gap:1rem; justify-content:center; flex-wrap:wrap;">
+        <a href="/analyzer" class="btn btn-primary animate-scale-in delay-2">
+            <i data-lucide="shield-check"></i> Analyze Password
+        </a>
+        <a href="/generator" class="btn btn-secondary animate-scale-in delay-3">
+            <i data-lucide="refresh-cw"></i> Generate Secure Password
+        </a>
+    </div>
+</section>
+<!-- ── Feature Cards ── -->
+<div class="grid-dashboard">
+    <!-- Card 1: Analyzer -->
+    <!-- Analyzer -->
+    <div class="card feature-card animate-fade-in delay-1">
+        <div>
+            <div class="feature-icon-wrapper">
+                <i data-lucide="key-round"></i>
+                <i data-lucide="shield-check"></i>
+            </div>
+            <h2>Password Analyzer</h2>
+            <p>Conduct multi-layered strength audits. Calculate mathematical entropy, query breach databases using privacy-preserving k-Anonymity protocols, and identify dictionary vulnerability lists.</p>
+            <h2 style="font-size:1.25rem;">Password Analyzer</h2>
+            <p>
+                Multi-layer strength audits with Shannon entropy calculation, 
+                k-Anonymity breach lookup, dictionary attack detection, 
+                and real-time crack time estimation across three attack models.
+            </p>
+        </div>
+        <a href="/analyzer" class="btn btn-primary">Open Analyzer <i data-lucide="arrow-right"></i></a>
+        <div style="display:flex; gap:0.5rem; flex-wrap:wrap; margin-top:0.5rem;">
+            <span class="badge badge-cyan">Entropy</span>
+            <span class="badge badge-red">Breach Check</span>
+            <span class="badge badge-purple">Crack Time</span>
+        </div>
+        <a href="/analyzer" class="btn btn-primary mt-2">
+            Open Analyzer <i data-lucide="arrow-right"></i>
+        </a>
+    </div>
+    <!-- Card 2: Generator -->
+    <div class="card feature-card generator-card animate-fade-in delay-2">
+    <!-- Generator -->
+    <div class="card feature-card card-purple animate-fade-in delay-2">
+        <div>
+            <div class="feature-icon-wrapper">
+                <i data-lucide="shuffle"></i>
+            </div>
+            <h2>Secure Generator</h2>
+            <p>Generate highly robust passwords or memorable passphrases using cryptographically secure pseudorandom number generators (CSPRNG). Custom-tailor lengths and complexity classes.</p>
+            <h2 style="font-size:1.25rem;">Secure Generator</h2>
+            <p>
+                Generate cryptographically secure passwords using Python's
+                <code style="background:rgba(139,92,246,0.15);color:var(--color-purple);padding:0.1rem 0.4rem;border-radius:4px;font-family:var(--font-mono);">secrets</code>
+                module (CSPRNG). Customise length, character sets, or generate 
+                memorable multi-word passphrases.
+            </p>
+        </div>
+        <a href="/generator" class="btn btn-primary" style="background: linear-gradient(135deg, var(--color-purple), #a855f7); box-shadow: 0 0 20px rgba(139, 92, 246, 0.25);">Open Generator <i data-lucide="arrow-right"></i></a>
+        <div style="display:flex; gap:0.5rem; flex-wrap:wrap; margin-top:0.5rem;">
+            <span class="badge badge-purple">CSPRNG</span>
+            <span class="badge badge-cyan">Passphrases</span>
+        </div>
+        <a href="/generator" class="btn btn-purple mt-2">
+            Open Generator <i data-lucide="arrow-right"></i>
+        </a>
+    </div>
+    <!-- Card 3: Education & Simulator -->
+    <div class="card feature-card education-card animate-fade-in delay-3">
+    <!-- Education -->
+    <div class="card feature-card card-green animate-fade-in delay-3">
+        <div>
+            <div class="feature-icon-wrapper">
+                <i data-lucide="graduation-cap"></i>
+                <i data-lucide="terminal"></i>
+            </div>
+            <h2>Attack Simulator & Learning</h2>
+            <p>Watch standard brute-forcing algorithms attempt to guess credentials in real-time. Learn the theory of hashing, salting, pepper, and modern authentication structures.</p>
+            <h2 style="font-size:1.25rem;">Attack Simulator</h2>
+            <p>
+                Watch a brute-force algorithm attempt to crack passwords in real-time. 
+                Learn about dictionary attacks, rainbow tables, hashing, salting, 
+                and Multi-Factor Authentication through interactive modules.
+            </p>
+        </div>
+        <a href="/education" class="btn btn-primary" style="background: linear-gradient(135deg, var(--strength-4), #34d399); box-shadow: 0 0 20px rgba(16, 185, 129, 0.25);">Open Learning Center <i data-lucide="arrow-right"></i></a>
+        <div style="display:flex; gap:0.5rem; flex-wrap:wrap; margin-top:0.5rem;">
+            <span class="badge badge-green">Brute Force</span>
+            <span class="badge badge-cyan">hashing</span>
+            <span class="badge badge-purple">MFA</span>
+        </div>
+        <a href="/education" class="btn btn-green mt-2">
+            Open Learning Center <i data-lucide="arrow-right"></i>
+        </a>
+    </div>
+    <!-- About -->
+    <div class="card feature-card card-pink animate-fade-in delay-4">
+        <div>
+            <div class="feature-icon-wrapper">
+                <i data-lucide="cpu"></i>
+            </div>
+            <h2 style="font-size:1.25rem;">Tools &amp; Tech Stack</h2>
+            <p>
+                Explore the technologies powering SentinelPass — from Flask and Python's
+                cryptographic libraries to vanilla CSS glassmorphism and
+                JavaScript canvas animations. Includes a full project structure guide.
+            </p>
+        </div>
+        <div style="display:flex; gap:0.5rem; flex-wrap:wrap; margin-top:0.5rem;">
+            <span class="badge badge-cyan">Flask</span>
+            <span class="badge badge-purple">Python</span>
+            <span class="badge badge-green">Open Source</span>
+        </div>
+        <a href="/about" class="btn btn-secondary mt-2" style="border-color:rgba(236,72,153,0.3); color:var(--color-pink);">
+            View Tech Stack <i data-lucide="arrow-right"></i>
+        </a>
+    </div>
+</div>
+<div class="stat-row animate-fade-in delay-3" style="margin-top: 4rem;">
+<!-- ── Stats Row ── -->
+<div class="stat-row animate-fade-in delay-4" style="margin-top:3.5rem;">
+    <div class="stat-item">
+        <div class="stat-number">81%</div>
+        <div class="stat-number" id="counter-breaches">81%</div>
+        <div class="stat-label">of data breaches</div>
+        <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.5rem;">involve weak, default, or stolen passwords according to global cyber surveys.</p>
+        <p class="stat-desc">involve weak, default, or stolen passwords (Verizon DBIR 2024)</p>
+    </div>
+    
+    <div class="stat-item">
+        <div class="stat-number">k-Anonymity</div>
+        <div class="stat-label">Zero-Trust checking</div>
+        <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.5rem;">Passwords are never sent directly to servers. Only local hashes are queried for leak lookups.</p>
+        <div class="stat-number">k-Anon</div>
+        <div class="stat-label">Zero-Trust Checking</div>
+        <p class="stat-desc">Passwords are never transmitted — only partial SHA-1 hashes are queried</p>
+    </div>
+    
+    <div class="stat-item">
+        <div class="stat-number">CSPRNG</div>
+        <div class="stat-label">Cryptographic Random</div>
+        <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.5rem;">Ensures complete unpredictability of character strings for mathematical security.</p>
+        <p class="stat-desc">Python's <code style="font-family:var(--font-mono);font-size:0.9em;">secrets</code> module ensures true randomness for generated passwords</p>
+    </div>
+</div>
+<!-- ── Quick Try Strip ── -->
+<div class="card mt-4 animate-fade-in delay-4" style="max-width:700px; margin: 3rem auto 0;">
+    <p class="section-title"><i data-lucide="zap" style="width:14px;height:14px;"></i> Quick Test</p>
+    <h3 style="margin-bottom:0.5rem;">Try the Analyzer right now</h3>
+    <p style="color:var(--text-secondary); font-size:0.9rem; margin-bottom:1.25rem;">
+        Type any password below to get an instant security score.
+    </p>
+    <div class="input-container" style="margin-bottom:0.75rem;">
+        <input type="password" id="quick-password-input" class="password-input"
+               placeholder="Type a password to test..." autocomplete="off" spellcheck="false">
+        <button id="quick-toggle-btn" class="input-icon-btn" title="Toggle Visibility">
+            <i data-lucide="eye"></i>
+        </button>
+    </div>
+    <!-- Segmented strength bar -->
+    <div class="strength-bar-container" id="quick-bar-container">
+        <div class="strength-segment" id="qs-0"></div>
+        <div class="strength-segment" id="qs-1"></div>
+        <div class="strength-segment" id="qs-2"></div>
+        <div class="strength-segment" id="qs-3"></div>
+        <div class="strength-segment" id="qs-4"></div>
+    </div>
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-top:0.5rem;">
+        <span id="quick-strength-label" style="font-weight:700; color:var(--text-muted); font-size:0.95rem;">Awaiting input...</span>
+        <a href="/analyzer" class="btn btn-secondary btn-sm">
+            Full Analysis <i data-lucide="arrow-right"></i>
+        </a>
+    </div>
+</div>
+{% endblock %}
+{% block scripts %}
+<script>
+// Quick test widget on home page
+(function() {
+    const input  = document.getElementById('quick-password-input');
+    const toggle = document.getElementById('quick-toggle-btn');
+    const label  = document.getElementById('quick-strength-label');
+    const segs   = [0,1,2,3,4].map(i => document.getElementById('qs-' + i));
+    const COLORS = ['#ef4444','#f97316','#facc15','#3b82f6','#10b981'];
+    const LABELS = ['Very Weak','Weak','Moderate','Strong','Very Strong'];
+    toggle?.addEventListener('click', () => {
+        const t = input.getAttribute('type') === 'password' ? 'text' : 'password';
+        input.setAttribute('type', t);
+        toggle.querySelector('i').setAttribute('data-lucide', t === 'text' ? 'eye-off' : 'eye');
+        lucide.createIcons();
+    });
+    let timer = null;
+    input?.addEventListener('input', () => {
+        clearTimeout(timer);
+        const val = input.value;
+        if (!val) { resetQuick(); return; }
+        timer = setTimeout(() => fetchQuick(val), 280);
+    });
+    async function fetchQuick(pw) {
+        try {
+            const res = await fetch('/api/analyze', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ password: pw })
+            });
+            const d = await res.json();
+            renderQuick(d.score);
+        } catch(e) {
+            const score = quickClientScore(pw);
+            renderQuick(score);
+        }
+    }
+    function renderQuick(score) {
+        const color = COLORS[score];
+        segs.forEach((s, i) => {
+            if (i <= score) {
+                s.style.backgroundColor = color;
+                s.style.boxShadow = `0 0 6px ${color}`;
+            } else {
+                s.style.backgroundColor = 'rgba(255,255,255,0.07)';
+                s.style.boxShadow = 'none';
+            }
+        });
+        label.textContent = LABELS[score];
+        label.style.color = color;
+    }
+    function resetQuick() {
+        segs.forEach(s => { s.style.backgroundColor = 'rgba(255,255,255,0.07)'; s.style.boxShadow = 'none'; });
+        label.textContent = 'Awaiting input...';
+        label.style.color = 'var(--text-muted)';
+    }
+    function quickClientScore(pw) {
+        let s = 0;
+        if (pw.length >= 8) s++;
+        if (pw.length >= 12) s++;
+        if (/[A-Z]/.test(pw) && /[a-z]/.test(pw) && /[0-9]/.test(pw)) s++;
+        if (/[^A-Za-z0-9]/.test(pw)) s++;
+        return Math.min(s, 4);
+    }
+})();
+</script>
+{% endblock %}
