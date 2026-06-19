@@ -1,0 +1,293 @@
+{% extends 'base.html' %}
+{% block title %}Cybersecurity Learning Center — SentinelPass{% endblock %}
+{% block title %}Cybersecurity Learning & Simulator - SentinelPass{% endblock %}
+{% block content %}
+<div class="hero-section" style="padding-bottom: 2rem;">
+    <h1>Cybersecurity Learning & Simulator</h1>
+    <p class="subtitle" style="margin-bottom: 0;">Interact with password-cracking simulators and master cybersecurity principles.</p>
+<div class="hero-section" style="padding-bottom:2rem;">
+    <div class="hero-badge"><i data-lucide="graduation-cap"></i> Interactive Learning</div>
+    <h1>Cybersecurity Learning Center</h1>
+    <p class="subtitle" style="margin-bottom:0;">
+        Simulate real password attacks, explore cryptographic defenses, and master security fundamentals.
+    </p>
+</div>
+<div class="layout-grid">
+    <!-- Simulator Panel -->
+    <div class="card">
+        <h2><i data-lucide="terminal" style="color: var(--color-cyan);"></i> Live Brute-Force Simulator</h2>
+        <p style="color: var(--text-secondary); margin-bottom: 1.5rem; font-size: 0.95rem;">
+            See how a computer guesses combinations sequentially. To keep simulations under 10 seconds, the target password is limited to **max 5 characters**.
+        </p>
+    <!-- ── LEFT: Simulator ── -->
+    <div style="display:flex; flex-direction:column; gap:1.5rem;">
+        <div class="sim-input-row">
+            <input type="text" id="sim-password" class="sim-input" value="key9" placeholder="Enter target (e.g., abc1)..." maxlength="5" autocomplete="off">
+            <button id="sim-start-btn" class="btn btn-primary">Start Attack</button>
+        </div>
+        <!-- Brute-Force Simulator -->
+        <div class="card animate-fade-in">
+            <h2><i data-lucide="terminal" style="color:var(--color-cyan);"></i> Live Brute-Force Simulator</h2>
+            <p style="color:var(--text-secondary); font-size:0.88rem; margin-bottom:1.5rem; line-height:1.6;">
+                Watch a sequential brute-force attempt in real-time. Passwords are limited to
+                <strong style="color:var(--color-yellow);">5 characters</strong> to keep demo times under 10s.
+                Observe how complexity grows <em>exponentially</em> with each extra character.
+            </p>
+        <div class="sim-console" id="sim-console">
+            <div class="console-line dim">Terminal initialized. Awaiting target...</div>
+        </div>
+            <div class="sim-input-row">
+                <input type="text" id="sim-password" class="sim-input" value="ab3" maxlength="5"
+                       placeholder="Target (max 5 chars)…" autocomplete="off" spellcheck="false"
+                       aria-label="Target password for brute-force simulation">
+                <button id="sim-start-btn" class="btn btn-primary" aria-label="Start brute-force attack simulation">
+                    <i data-lucide="play"></i> Start Attack
+                </button>
+                <button id="sim-stop-btn" class="btn btn-danger" style="display:none;" aria-label="Stop simulation">
+                    <i data-lucide="square"></i> Stop
+                </button>
+            </div>
+        <div class="sim-stats">
+            <div class="sim-stat-box">
+                <div class="sim-stat-label">Total Attempts</div>
+                <div class="sim-stat-value" id="sim-val-attempts">0</div>
+            <!-- Terminal Console -->
+            <div class="sim-console" id="sim-console" role="log" aria-label="Simulation output console" aria-live="polite">
+                <div class="console-line dim">[ SentinelPass BruteForce Sim v2.0 initialized ]</div>
+                <div class="console-line dim">[ Awaiting target password… ]</div>
+            </div>
+            <div class="sim-stat-box">
+                <div class="sim-stat-label">Elapsed Time</div>
+                <div class="sim-stat-value" id="sim-val-time">0.00s</div>
+            <!-- Stats -->
+            <div class="sim-stats">
+                <div class="sim-stat-box">
+                    <div class="sim-stat-label">Total Attempts</div>
+                    <div class="sim-stat-value" id="sim-val-attempts">0</div>
+                </div>
+                <div class="sim-stat-box">
+                    <div class="sim-stat-label">Elapsed Time</div>
+                    <div class="sim-stat-value" id="sim-val-time">0.00s</div>
+                </div>
+                <div class="sim-stat-box">
+                    <div class="sim-stat-label">Current Guess</div>
+                    <div class="sim-stat-value text-cyan" id="sim-val-guess">—</div>
+                </div>
+            </div>
+            <div class="sim-stat-box">
+                <div class="sim-stat-label">Current Guess</div>
+                <div class="sim-stat-value" id="sim-val-guess" style="color: var(--color-cyan);">-</div>
+            <!-- Search space info -->
+            <div id="sim-search-info" style="display:none; margin-top:1.25rem; padding:0.85rem 1rem; background:rgba(6,182,212,0.05); border:1px solid rgba(6,182,212,0.15); border-radius:8px; font-size:0.82rem; color:var(--text-secondary);">
+                <strong style="color:var(--color-cyan);">Search Space:</strong>
+                <span id="sim-search-text"></span>
+            </div>
+            <p style="font-size:0.78rem; color:var(--text-muted); margin-top:1.25rem; line-height:1.5;">
+                ⚠ A real GPU cluster runs at <strong style="color:var(--text-secondary);">100 trillion</strong> attempts/sec.
+                This browser loop is intentionally throttled to prevent UI freezing — but the exponential 
+                growth pattern is identical. Adding just one character multiplies difficulty by the alphabet size!
+            </p>
+        </div>
+        
+        <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 1.25rem; line-height: 1.4;">
+            *Note: A real GPU cluster runs at trillions of attempts per second, while a browser Javascript loop is throttled to prevent crashing your system. However, the exponential growth of complexity as length increases remains identical!
+        </p>
+        <!-- Attack Type Selector (Dictionary) -->
+        <div class="card animate-fade-in delay-2">
+            <h2 style="font-size:1.1rem;"><i data-lucide="book-open" style="color:var(--color-orange);"></i> Dictionary Attack Demo</h2>
+            <p style="color:var(--text-secondary); font-size:0.88rem; margin-bottom:1.25rem;">
+                Test if a password is in a common-password dictionary. These lists contain millions of real leaked passwords.
+            </p>
+            <div style="display:flex; gap:0.75rem; flex-wrap:wrap; align-items:center;">
+                <input type="text" id="dict-input" class="sim-input" style="flex:1; min-width:180px;"
+                       placeholder="e.g. password123, qwerty…" autocomplete="off" spellcheck="false">
+                <button id="dict-check-btn" class="btn btn-secondary">
+                    <i data-lucide="search"></i> Check Dictionary
+                </button>
+            </div>
+            <div id="dict-result" style="margin-top:1rem; display:none;"></div>
+        </div>
+    </div>
+    <!-- Educational Content Accordion -->
+    <!-- ── RIGHT: Knowledge Base Accordion ── -->
+    <div class="details-panel">
+        <div class="card" style="padding: 1.5rem;">
+            <h2><i data-lucide="book-open" style="color: var(--color-purple);"></i> Knowledge Base</h2>
+            <p style="color: var(--text-secondary); font-size: 0.88rem; margin-bottom: 1rem;">
+                Expand your knowledge on cryptographic defense concepts.
+        <div class="card animate-fade-in delay-1" style="padding:1.5rem;">
+            <h2 style="font-size:1.2rem; margin-bottom:0.5rem;">
+                <i data-lucide="book-marked" style="color:var(--color-purple);"></i> Knowledge Base
+            </h2>
+            <p style="font-size:0.82rem; color:var(--text-muted); margin-bottom:1.25rem;">
+                Click any topic to expand a full explanation.
+            </p>
+            
+            <div class="edu-accordion">
+                <!-- Brute Force Accordion -->
+                <!-- Brute Force -->
+                <div class="accordion-item" id="acc-brute">
+                    <button class="accordion-header">
+                        <span>Brute Force Attack</span>
+                        <i data-lucide="chevron-down" class="chevron"></i>
+                        <span style="display:flex; align-items:center; gap:0.6rem;">
+                            <i data-lucide="zap" class="accordion-icon" style="color:var(--color-red);"></i>
+                            Brute Force Attack
+                        </span>
+                        <i data-lucide="chevron-down" class="accordion-chevron"></i>
+                    </button>
+                    <div class="accordion-content">
+                        <p><strong>What is it?</strong> An attacker tests all possible combinations of characters (a, b, c... 1, 2, 3...) sequentially until they find the match.</p>
+                        <p><strong>Defense:</strong> The complexity grows exponentially. Adding just 1 extra character multiplies the difficulty by the alphabet size (e.g. 95x for ASCII printable characters). Long passwords make brute-forcing mathematically impossible.</p>
+                        <p><strong>What is it?</strong> An attacker tests every possible combination of characters sequentially — <code>a</code>, <code>b</code>, <code>c</code>… <code>aa</code>, <code>ab</code>… until a match is found.</p>
+                        <p><strong>How fast?</strong> Modern GPUs (e.g. RTX 4090) can test <strong>~100 billion</strong> MD5 hashes per second. Botnets and cloud clusters multiply this by orders of magnitude.</p>
+                        <p><strong>Defense:</strong> Complexity grows exponentially. A password using 95 printable ASCII characters adds 95× difficulty per character. A 16-character password has 95¹⁶ ≈ 4.4 × 10³¹ possible combinations — effectively unbreakable by brute force.</p>
+                        <ul>
+                            <li>Use passwords of 16+ characters</li>
+                            <li>Mix uppercase, lowercase, digits, and symbols</li>
+                            <li>Enable account lockouts and rate limiting</li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- Dictionary Attack Accordion -->
+                <!-- Dictionary Attack -->
+                <div class="accordion-item" id="acc-dictionary">
+                    <button class="accordion-header">
+                        <span>Dictionary Attack</span>
+                        <i data-lucide="chevron-down" class="chevron"></i>
+                        <span style="display:flex; align-items:center; gap:0.6rem;">
+                            <i data-lucide="book" class="accordion-icon" style="color:var(--color-orange);"></i>
+                            Dictionary Attack
+                        </span>
+                        <i data-lucide="chevron-down" class="accordion-chevron"></i>
+                    </button>
+                    <div class="accordion-content">
+                        <p><strong>What is it?</strong> Attackers skip guessing random character sets and instead feed lists of common words, names, and breached passwords (dictionaries) into the crack engines.</p>
+                        <p><strong>Defense:</strong> Never use plain dictionary words, popular cultural terms, or standard number sequences. Use mixed characters or multi-word random passphrases.</p>
+                        <p><strong>What is it?</strong> Instead of guessing randomly, attackers use massive wordlists of known passwords, common phrases, and previous breach data. Tools like Hashcat can try millions of words per second.</p>
+                        <p><strong>Popular wordlists:</strong> rockyou.txt (14M passwords), SecLists (millions of entries), HIBP breach dumps (billions of hashes).</p>
+                        <p><strong>Defense:</strong></p>
+                        <ul>
+                            <li>Never use dictionary words alone (e.g. <code>sunshine</code>, <code>dragon</code>)</li>
+                            <li>Avoid common substitutions: <code>p@ssw0rd</code> is in every dictionary list</li>
+                            <li>Use random passphrases of 4+ unrelated words</li>
+                            <li>Check passwords against breach databases before use</li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- Hashing and Salting Accordion -->
+                <!-- Rainbow Tables -->
+                <div class="accordion-item" id="acc-rainbow">
+                    <button class="accordion-header">
+                        <span style="display:flex; align-items:center; gap:0.6rem;">
+                            <i data-lucide="table" class="accordion-icon" style="color:var(--color-purple);"></i>
+                            Rainbow Table Attack
+                        </span>
+                        <i data-lucide="chevron-down" class="accordion-chevron"></i>
+                    </button>
+                    <div class="accordion-content">
+                        <p><strong>What is it?</strong> A pre-computed lookup table mapping billions of plaintext passwords to their hashes. When an attacker obtains a database of hashed passwords, they look up hashes in the table to instantly find matches.</p>
+                        <p><strong>Defense — Salting:</strong> A cryptographic <strong>salt</strong> is a unique random string appended to each password before hashing. Even two identical passwords produce completely different hashes. This defeats rainbow tables entirely since the tables would need to be recomputed for every possible salt.</p>
+                        <p>Example: <code>hash("password" + "x7Kp2Q") ≠ hash("password" + "mN9rL4")</code></p>
+                    </div>
+                </div>
+                <!-- Hashing & Salting -->
+                <div class="accordion-item" id="acc-hashing">
+                    <button class="accordion-header">
+                        <span>Hashing & Salting</span>
+                        <i data-lucide="chevron-down" class="chevron"></i>
+                        <span style="display:flex; align-items:center; gap:0.6rem;">
+                            <i data-lucide="hash" class="accordion-icon" style="color:var(--color-cyan);"></i>
+                            Hashing &amp; Salting
+                        </span>
+                        <i data-lucide="chevron-down" class="accordion-chevron"></i>
+                    </button>
+                    <div class="accordion-content">
+                        <p><strong>Hashing:</strong> Turning a password into a fixed-length string of bytes using a one-way mathematical function (e.g. bcrypt, SHA-256). They cannot be easily reversed.</p>
+                        <p><strong>Salting:</strong> Appending a unique, random string of bytes to each password before hashing it. This prevents attackers from using pre-computed lists (Rainbow Tables) to crack matching passwords simultaneously.</p>
+                        <p><strong>Hashing:</strong> A one-way mathematical function converting any input into a fixed-length digest. You cannot reverse a hash to find the original password (without brute force).</p>
+                        <p><strong>Secure hash algorithms for passwords:</strong></p>
+                        <ul>
+                            <li><code>bcrypt</code> — adaptive cost, widely recommended</li>
+                            <li><code>Argon2</code> — winner of Password Hashing Competition (2015)</li>
+                            <li><code>scrypt</code> — memory-hard, resistant to GPU attacks</li>
+                            <li><code>PBKDF2</code> — NIST standard, used in many systems</li>
+                        </ul>
+                        <p><strong>Never use:</strong> MD5, SHA-1, or unsalted SHA-256 for password storage — these are trivially cracked.</p>
+                    </div>
+                </div>
+                <!-- MFA Accordion -->
+                <!-- Credential Stuffing -->
+                <div class="accordion-item" id="acc-stuffing">
+                    <button class="accordion-header">
+                        <span style="display:flex; align-items:center; gap:0.6rem;">
+                            <i data-lucide="repeat" class="accordion-icon" style="color:var(--color-yellow);"></i>
+                            Credential Stuffing
+                        </span>
+                        <i data-lucide="chevron-down" class="accordion-chevron"></i>
+                    </button>
+                    <div class="accordion-content">
+                        <p><strong>What is it?</strong> Attackers take username/password pairs leaked from one breach and automatically try them on hundreds of other websites. Since many people reuse passwords, this is extremely effective.</p>
+                        <p><strong>Scale:</strong> Automated bots can attempt millions of logins per hour. The 2020 Zoom breach exposed 500,000+ accounts via credential stuffing from unrelated breaches.</p>
+                        <p><strong>Defense:</strong></p>
+                        <ul>
+                            <li><strong>Never reuse passwords</strong> across different services</li>
+                            <li>Use a password manager to maintain unique passwords per site</li>
+                            <li>Enable MFA — even correct passwords fail without the second factor</li>
+                            <li>Monitor accounts with HIBP breach notifications</li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- MFA -->
+                <div class="accordion-item" id="acc-mfa">
+                    <button class="accordion-header">
+                        <span>Multi-Factor Auth (MFA)</span>
+                        <i data-lucide="chevron-down" class="chevron"></i>
+                        <span style="display:flex; align-items:center; gap:0.6rem;">
+                            <i data-lucide="smartphone" class="accordion-icon" style="color:var(--color-green);"></i>
+                            Multi-Factor Auth (MFA)
+                        </span>
+                        <i data-lucide="chevron-down" class="accordion-chevron"></i>
+                    </button>
+                    <div class="accordion-content">
+                        <p><strong>Why is it crucial?</strong> MFA adds layers of defense. Even if an attacker successfully logs in with your correct password, they are blocked unless they can supply the secondary code (sent via authenticator app, hardware key, or biometric check).</p>
+                        <p>MFA stops over 99% of automated account takeover attacks.</p>
+                        <p><strong>What is MFA?</strong> Requiring two or more verification factors before granting access:</p>
+                        <ul>
+                            <li><strong>Something you know</strong> — password or PIN</li>
+                            <li><strong>Something you have</strong> — TOTP app (Google Authenticator, Authy), hardware key (YubiKey)</li>
+                            <li><strong>Something you are</strong> — fingerprint, face recognition</li>
+                        </ul>
+                        <p><strong>Impact:</strong> Microsoft research shows MFA blocks <strong>99.9%</strong> of automated account takeover attacks. Even if your password is stolen, attackers cannot access accounts without the second factor.</p>
+                        <p><strong>Best MFA methods</strong> (strongest → weakest):</p>
+                        <ul>
+                            <li>Hardware security keys (FIDO2/WebAuthn) — Phishing-proof</li>
+                            <li>TOTP authenticator apps — Very strong</li>
+                            <li>SMS/email codes — Convenient but vulnerable to SIM-swapping</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+                <!-- Zero-Trust -->
+                <div class="accordion-item" id="acc-zerotrust">
+                    <button class="accordion-header">
+                        <span style="display:flex; align-items:center; gap:0.6rem;">
+                            <i data-lucide="lock" class="accordion-icon" style="color:var(--color-blue);"></i>
+                            Zero-Trust Security
+                        </span>
+                        <i data-lucide="chevron-down" class="accordion-chevron"></i>
+                    </button>
+                    <div class="accordion-content">
+                        <p><strong>Principle:</strong> "Never trust, always verify." Every access request must be fully authenticated, authorized, and continuously validated — regardless of whether it comes from inside or outside the network perimeter.</p>
+                        <p>SentinelPass applies a zero-trust approach to breach checking: your full password is <strong>never sent to any server</strong>. Only the first 5 characters of its SHA-1 hash prefix are transmitted, and results are matched locally. This is called <strong>k-Anonymity</strong>.</p>
+                        <p>This means even if the HIBP API were compromised, attackers could not recover your password from the query.</p>
+                    </div>
+                </div>
+            </div><!-- /edu-accordion -->
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/simulator.js') }}"></script>
+{% endblock %}
