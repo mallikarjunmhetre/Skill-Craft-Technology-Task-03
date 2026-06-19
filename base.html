@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Password Strength & Security Hub{% endblock %}</title>
+    <!-- Meta Tags for SEO -->
+    <meta name="description" content="Assess your password strength, generate cryptographically secure passwords, simulate password attacks, and learn modern cybersecurity best practices.">
+    <title>{% block title %}SentinelPass — Password Security Suite{% endblock %}</title>
+    <meta name="description" content="Advanced password strength analyzer, secure generator, breach checker, and cybersecurity education hub. Built with Python, Flask and modern web technologies.">
+    <meta name="keywords" content="password strength, cybersecurity, password generator, breach checker, entropy">
+    <meta name="author" content="SentinelPass">
+    <meta name="theme-color" content="#060910">
+    <meta property="og:title" content="SentinelPass — Password Security Suite">
+    <meta property="og:description" content="Assess, generate, and learn about password security with real-time analysis and breach detection.">
+    <meta property="og:type" content="website">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <nav class="navbar" id="app-navbar">
+    <!-- Particle canvas background -->
+    <canvas id="particle-canvas" aria-hidden="true"></canvas>
+    <!-- Page loader bar -->
+    <div class="page-loader" id="page-loader" aria-hidden="true"></div>
+    <!-- ── Navigation Bar ── -->
+    <nav class="navbar" id="app-navbar" role="navigation" aria-label="Main Navigation">
+        <div class="nav-container">
+            <a href="/" class="logo">
+            <a href="/" class="logo" aria-label="SentinelPass Home">
+                <i data-lucide="shield-alert"></i>
+                <span>SentinelPass</span>
+            </a>
+            
+            <button class="menu-toggle" id="menu-toggle-btn" aria-label="Toggle Navigation Menu">
+            <button class="menu-toggle" id="menu-toggle-btn" aria-label="Toggle Navigation Menu" aria-expanded="false">
+                <i data-lucide="menu"></i>
+            </button>
+            
+            <ul class="nav-menu" id="nav-menu-list">
+                <li>
+                    <a href="/" class="nav-link" id="nav-home">
+            <ul class="nav-menu" id="nav-menu-list" role="menubar">
+                <li role="none">
+                    <a href="/" class="nav-link" id="nav-home" role="menuitem">
+                        <i data-lucide="layout-dashboard"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/analyzer" class="nav-link" id="nav-analyzer">
+                        <i data-lucide="key-round"></i>
+                <li role="none">
+                    <a href="/analyzer" class="nav-link" id="nav-analyzer" role="menuitem">
+                        <i data-lucide="shield-check"></i>
+                        <span>Analyzer</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/generator" class="nav-link" id="nav-generator">
+                <li role="none">
+                    <a href="/generator" class="nav-link" id="nav-generator" role="menuitem">
+                        <i data-lucide="refresh-cw"></i>
+                        <span>Generator</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/education" class="nav-link" id="nav-education">
+                <li role="none">
+                    <a href="/education" class="nav-link" id="nav-education" role="menuitem">
+                        <i data-lucide="graduation-cap"></i>
+                        <span>Learn Security</span>
+                        <span>Learn</span>
+                    </a>
+                </li>
+                <li role="none">
+                    <a href="/about" class="nav-link" id="nav-about" role="menuitem">
+                        <i data-lucide="info"></i>
+                        <span>About</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <!-- ── Page Content ── -->
+    <main class="animate-fade-in">
+        {% block content %}{% endblock %}
+    </main>
+    <footer>
+    <!-- ── Footer ── -->
+    <footer role="contentinfo">
+        <div class="footer-container">
+            <p>&copy; 2026 SentinelPass. Designed for Advanced Password Security.</p>
+            <p>Built with Flask, Vanilla HTML/CSS, and Javascript. Safe & secure checking using k-Anonymity.</p>
+            <p><a href="https://github.com" target="_blank" rel="noopener noreferrer"><i data-lucide="github" style="display:inline-block; vertical-align:middle; width:16px; height:16px; margin-right:4px;"></i>GitHub Project Repository</a></p>
+            <p>
+                <strong style="color: var(--color-cyan);">SentinelPass v2.0</strong>
+                &mdash; Advanced Password Security Suite
+            </p>
+            <p style="margin-bottom: 0.75rem;">
+                Built with Flask, Python, HTML5, CSS3 &amp; JavaScript &bull;
+                Breach checks powered by
+                <a href="https://haveibeenpwned.com" target="_blank" rel="noopener noreferrer">Have I Been Pwned</a>
+                (k-Anonymity)
+            </p>
+            <div class="footer-links">
+                <a href="https://github.com" target="_blank" rel="noopener noreferrer">
+                    <i data-lucide="github" style="width:14px;height:14px;vertical-align:middle;margin-right:4px;"></i>
+                    GitHub Repository
+                </a>
+                <a href="/about">Tools &amp; Tech Stack</a>
+                <a href="/education">Security Learning</a>
+                <a href="https://haveibeenpwned.com" target="_blank" rel="noopener noreferrer">HIBP API</a>
+            </div>
+            <p style="margin-top: 1rem; font-size: 0.78rem;">
+                &copy; 2026 SentinelPass &bull; Passwords are <strong>never sent</strong> to any server during analysis
+            </p>
+        </div>
+    </footer>
+    <!-- Lucide Icons CDN -->
+    <!-- ── Copy Toast ── -->
+    <div class="toast" id="global-toast" role="alert" aria-live="polite">
+        <i data-lucide="check-circle-2"></i>
+        <span id="toast-message">Copied!</span>
+    </div>
+    <!-- ── Lucide Icons ── -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- ── Particle Background ── -->
+    <script src="{{ url_for('static', filename='js/particles.js') }}"></script>
+    <script>
+        // Set active nav link based on current path
+        // ── Remove page loader ──
+        window.addEventListener('load', () => {
+            const loader = document.getElementById('page-loader');
+            if (loader) { loader.style.opacity = '0'; setTimeout(() => loader.remove(), 300); }
+        });
+        // ── Scroll: navbar shadow ──
+        window.addEventListener('scroll', () => {
+            document.getElementById('app-navbar').classList.toggle('scrolled', window.scrollY > 20);
+        }, { passive: true });
+        // ── Active nav link ──
+        const currentPath = window.location.pathname;
+        if (currentPath === '/') {
+            document.getElementById('nav-home').classList.add('active');
+        } else if (currentPath === '/analyzer') {
+            document.getElementById('nav-analyzer').classList.add('active');
+        } else if (currentPath === '/generator') {
+            document.getElementById('nav-generator').classList.add('active');
+        } else if (currentPath === '/education') {
+            document.getElementById('nav-education').classList.add('active');
+        }
+        const navMap = {
+            '/':          'nav-home',
+            '/analyzer':  'nav-analyzer',
+            '/generator': 'nav-generator',
+            '/education': 'nav-education',
+            '/about':     'nav-about',
+        };
+        const activeId = navMap[currentPath];
+        if (activeId) document.getElementById(activeId)?.classList.add('active');
+        // Toggle mobile menu
+        const menuToggle = document.getElementById('menu-toggle-btn');
+        // ── Mobile menu toggle ──
+        const menuBtn = document.getElementById('menu-toggle-btn');
+        const navMenu = document.getElementById('nav-menu-list');
+        
+        menuToggle.addEventListener('click', () => {
+            navMenu.classList.toggle('mobile-active');
+            const icon = menuToggle.querySelector('i');
+            if (navMenu.classList.contains('mobile-active')) {
+                icon.setAttribute('data-lucide', 'x');
+            } else {
+                icon.setAttribute('data-lucide', 'menu');
+            }
+        menuBtn.addEventListener('click', () => {
+            const isOpen = navMenu.classList.toggle('mobile-active');
+            menuBtn.setAttribute('aria-expanded', isOpen);
+            menuBtn.querySelector('i').setAttribute('data-lucide', isOpen ? 'x' : 'menu');
+            lucide.createIcons();
+        });
+        // Initialize icons
+        // ── Global toast utility ──
+        function showToast(msg = 'Copied!', duration = 2500) {
+            const t = document.getElementById('global-toast');
+            document.getElementById('toast-message').textContent = msg;
+            t.classList.add('show');
+            setTimeout(() => t.classList.remove('show'), duration);
+        }
+        // ── Initialize icons ──
+        lucide.createIcons();
+    </script>
+    {% block scripts %}{% endblock %}
+</body>
+</html>
